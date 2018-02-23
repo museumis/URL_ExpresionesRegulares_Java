@@ -181,20 +181,21 @@ public class GestionUrl {
 		System.out.print("\n\tDescargar : ");
 		opcion = new Scanner(System.in).nextInt() - 1;
 		url = new URL(imagenes.get(opcion));
+		
 		// Descargar
-		InputStream in = new BufferedInputStream(url.openStream());
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		InputStream flujoEntrada = new BufferedInputStream(url.openStream());
+		ByteArrayOutputStream flujoSalida = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
 		int ncontador = 0;
 
-		while (-1 != (ncontador = in.read(buffer))) {
-			out.write(buffer, 0, ncontador);
+		while (-1 != (ncontador = flujoEntrada.read(buffer))) {
+			flujoSalida.write(buffer, 0, ncontador);
 		}
 
-		out.close();
-		in.close();
+		flujoSalida.close();
+		flujoEntrada.close();
 
-		byte[] imagen = out.toByteArray();
+		byte[] imagen = flujoSalida.toByteArray();
 
 		// Guardar
 		FileOutputStream fos = new FileOutputStream("descargas//");
